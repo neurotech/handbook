@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Feed {
+  id           String        @id @default(cuid())
+  name         String
+  url          String        @unique
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  readArticles ReadArticle[]
+}
+
+model ReadArticle {
+  id          String   @id @default(cuid())
+  articleGuid String
+  feedId      String
+  readAt      DateTime @default(now())
+  feed        Feed     @relation(fields: [feedId], references: [id], onDelete: Cascade)
+
+  @@unique([feedId, articleGuid])
+}

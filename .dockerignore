@@ -1,0 +1,23 @@
+# dependencies / build outputs
+node_modules
+.next
+out
+
+# git & editor
+.git
+.gitignore
+.cursor
+
+# sqlite & env (regenerated/mounted at runtime)
+*.db
+*.db-journal
+.env*
+
+# tooling & docs not needed at build
+*.md
+LICENSE
+pnpm-debug.log
+coverage
+
+# generated locally; Dockerfile runs prisma generate
+src/generated/prisma

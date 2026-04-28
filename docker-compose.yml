@@ -1,0 +1,15 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${PORT:-9999}:3000"
+    environment:
+      DATABASE_URL: file:///data/dev.db
+    volumes:
+      - handbook-data:/data
+    restart: unless-stopped
+
+volumes:
+  handbook-data:

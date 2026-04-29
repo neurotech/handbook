@@ -41,12 +41,8 @@ export function FeedList({ selectedArticle, onSelectArticle }: FeedListProps) {
 
 	return (
 		<div className="flex h-full min-h-0 flex-1 flex-col">
-			<div className="flex shrink-0 flex-col gap-3">
-				<div
-					className="h-[max(0.75rem,env(safe-area-inset-top))] shrink-0"
-					aria-hidden
-				/>
-				<div className="flex items-center justify-between gap-3 px-3 sm:px-4">
+			<div className="flex shrink-0 flex-col">
+				<div className="flex items-center justify-between gap-3 p-3 sm:px-4">
 					<div className="flex items-center gap-2">
 						<BookOpen className="h-5 w-5 text-primary" />
 						<h1 className="font-semibold text-lg">Handbook</h1>

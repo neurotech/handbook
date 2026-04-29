@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Loader2, RefreshCw, Rss } from "lucide-react";
+import { BookOpen, Loader2, RefreshCw, Rss } from "lucide-react";
 import { AddFeedDialog } from "@/components/add-feed-dialog";
 import { FeedItem } from "@/components/feed-item";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -39,8 +39,8 @@ export function FeedList({ selectedArticle, onSelectArticle }: FeedListProps) {
 		<div className="flex h-full min-h-0 flex-1 flex-col">
 			<div className="flex items-center justify-between px-4 py-3">
 				<div className="flex items-center gap-2">
-					<Rss className="h-5 w-5 text-primary" />
-					<h1 className="font-semibold text-lg">Feeds</h1>
+					<BookOpen className="h-5 w-5 text-primary" />
+					<h1 className="font-semibold text-lg">Handbook</h1>
 				</div>
 				<div className="flex items-center gap-1">
 					<ThemeToggle />

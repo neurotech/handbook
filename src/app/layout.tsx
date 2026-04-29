@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-	title: "RSS Reader",
-	description: "A simple RSS feed reader",
+	title: "Handbook",
+	description: "Read and organize your feeds",
 };
 
 export default function RootLayout({

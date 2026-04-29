@@ -5,6 +5,6 @@ mkdir -p /data
 
 export DATABASE_URL="${DATABASE_URL:-file:///data/dev.db}"
 
-prisma migrate deploy
+pnpm exec prisma migrate deploy
 
 exec "$@"

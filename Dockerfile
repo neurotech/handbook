@@ -24,7 +24,6 @@ RUN pnpm exec prisma generate
 RUN pnpm build
 
 FROM node AS runner
-RUN npm install -g prisma@7.8.0
 WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1

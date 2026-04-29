@@ -61,7 +61,7 @@ export function AddFeedDialog() {
 						e.preventDefault();
 						mutation.mutate();
 					}}
-					className="space-y-4"
+					className="flex flex-col gap-4"
 				>
 					<div className="flex flex-col gap-1">
 						<label htmlFor="feed-url" className="font-medium text-sm">

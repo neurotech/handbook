@@ -41,44 +41,52 @@ export function FeedList({ selectedArticle, onSelectArticle }: FeedListProps) {
 
 	return (
 		<div className="flex h-full min-h-0 flex-1 flex-col">
-			<div className="flex shrink-0 items-center justify-between px-3 pt-[max(0.75rem,env(safe-area-inset-top))] pb-3 sm:px-4">
-				<div className="flex items-center gap-2">
-					<BookOpen className="h-5 w-5 text-primary" />
-					<h1 className="font-semibold text-lg">Handbook</h1>
+			<div className="flex shrink-0 flex-col gap-3">
+				<div
+					className="h-[max(0.75rem,env(safe-area-inset-top))] shrink-0"
+					aria-hidden
+				/>
+				<div className="flex items-center justify-between gap-3 px-3 sm:px-4">
+					<div className="flex items-center gap-2">
+						<BookOpen className="h-5 w-5 text-primary" />
+						<h1 className="font-semibold text-lg">Handbook</h1>
+					</div>
+					<div className="flex items-center gap-1">
+						<ThemeToggle />
+						<Tooltip>
+							<TooltipTrigger
+								render={
+									<Button
+										size="icon"
+										className="h-8 w-8"
+										onClick={handleRefreshAll}
+									/>
+								}
+							>
+								<RefreshCw className="h-4 w-4" />
+							</TooltipTrigger>
+							<TooltipContent>Refresh all feeds</TooltipContent>
+						</Tooltip>
+						<AddFeedDialog />
+					</div>
 				</div>
-				<div className="flex items-center gap-1">
-					<ThemeToggle />
-					<Tooltip>
-						<TooltipTrigger
-							render={
-								<Button
-									size="icon"
-									className="h-8 w-8"
-									onClick={handleRefreshAll}
-								/>
-							}
-						>
-							<RefreshCw className="h-4 w-4" />
-						</TooltipTrigger>
-						<TooltipContent>Refresh all feeds</TooltipContent>
-					</Tooltip>
-					<AddFeedDialog />
-				</div>
+				<Separator />
 			</div>
-			<Separator />
 			<ScrollArea className="min-h-0 flex-1">
 				{isLoading && (
-					<div className="flex items-center justify-center py-12">
+					<div className="flex min-h-48 items-center justify-center">
 						<Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
 					</div>
 				)}
 				{!isLoading && feeds?.length === 0 && (
-					<div className="flex flex-col items-center justify-center px-4 py-12 text-center">
-						<Rss className="mb-3 h-10 w-10 text-muted-foreground/50" />
-						<p className="text-muted-foreground text-sm">No feeds yet</p>
-						<p className="mt-1 text-muted-foreground/70 text-xs">
-							Add an RSS feed to get started
-						</p>
+					<div className="flex min-h-48 w-full flex-col items-center justify-center text-center">
+						<div className="flex max-w-[min(100%,calc(100%-2rem))] flex-col items-center gap-3">
+							<Rss className="h-10 w-10 text-muted-foreground/50" />
+							<p className="text-muted-foreground text-sm">No feeds yet</p>
+							<p className="text-muted-foreground/70 text-xs">
+								Add an RSS feed to get started
+							</p>
+						</div>
 					</div>
 				)}
 				{feeds?.map((feed) => (

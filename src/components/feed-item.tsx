@@ -73,12 +73,12 @@ export function FeedItem({
 	return (
 		<>
 			<Collapsible open={isOpen} onOpenChange={setIsOpen}>
-				<div className="group flex items-center">
+				<div className="group flex items-center gap-1">
 					<CollapsibleTrigger
 						render={
 							<button
 								type="button"
-								className="flex flex-1 items-center gap-2 px-3 py-2.5 text-left transition-colors hover:bg-accent/50"
+								className="flex min-h-11 flex-1 items-center gap-2 px-3 text-left transition-colors hover:bg-accent/50 sm:min-h-10"
 							/>
 						}
 					>
@@ -109,7 +109,7 @@ export function FeedItem({
 								<Button
 									variant="ghost"
 									size="icon"
-									className="mr-1 h-9 w-9 touch-manipulation opacity-100 md:h-8 md:w-8 md:opacity-0 md:transition-opacity md:group-hover:opacity-100"
+									className="h-9 w-9 shrink-0 touch-manipulation opacity-100 md:h-8 md:w-8 md:opacity-0 md:transition-opacity md:group-hover:opacity-100"
 								/>
 							}
 						>
@@ -117,14 +117,14 @@ export function FeedItem({
 						</DropdownMenuTrigger>
 						<DropdownMenuContent align="end">
 							<DropdownMenuItem onClick={() => setEditOpen(true)}>
-								<Pencil className="mr-2 h-4 w-4" />
+								<Pencil className="h-4 w-4" />
 								Edit
 							</DropdownMenuItem>
 							<DropdownMenuItem
 								variant="destructive"
 								onClick={() => deleteMutation.mutate()}
 							>
-								<Trash2 className="mr-2 h-4 w-4" />
+								<Trash2 className="h-4 w-4" />
 								Delete
 							</DropdownMenuItem>
 						</DropdownMenuContent>
@@ -132,13 +132,17 @@ export function FeedItem({
 				</div>
 				<CollapsibleContent>
 					{isLoading && (
-						<div className="px-3 py-4 text-center text-muted-foreground text-sm">
-							Loading articles...
+						<div className="flex min-h-16 w-full flex-col items-center justify-center text-center text-muted-foreground text-sm">
+							<span className="max-w-[calc(100%-1.5rem)]">
+								Loading articles...
+							</span>
 						</div>
 					)}
 					{!isLoading && articles.length === 0 && (
-						<div className="px-3 py-4 text-center text-muted-foreground text-sm">
-							No articles found
+						<div className="flex min-h-16 w-full flex-col items-center justify-center text-center text-muted-foreground text-sm">
+							<span className="max-w-[calc(100%-1.5rem)]">
+								No articles found
+							</span>
 						</div>
 					)}
 					{articles.map((article) => (

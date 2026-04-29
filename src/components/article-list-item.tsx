@@ -1,6 +1,6 @@
 "use client";
 
-import { format, isValid } from "date-fns";
+import { formatPubDateCompact } from "@/lib/dates";
 import { cn } from "@/lib/utils";
 import type { Article } from "@/types";
 
@@ -15,15 +15,14 @@ export function ArticleListItem({
 	isSelected,
 	onClick,
 }: ArticleListItemProps) {
-	const parsed = article.pubDate ? new Date(article.pubDate) : null;
-	const date = parsed && isValid(parsed) ? format(parsed, "MMMM d") : null;
+	const date = formatPubDateCompact(article.pubDate);
 
 	return (
 		<button
 			type="button"
 			onClick={onClick}
 			className={cn(
-				"min-h-[2.75rem] w-full border-border/50 border-b px-3 py-2.5 text-left transition-colors last:border-b-0 hover:cursor-pointer hover:bg-accent/50 sm:min-h-0 sm:py-2",
+				"flex min-h-11 w-full flex-col justify-center gap-1 border-border/50 border-b p-2 px-3 text-left transition-colors last:border-b-0 hover:cursor-pointer hover:bg-accent/50 sm:min-h-0 sm:justify-start sm:gap-1.5",
 				isSelected && "bg-indigo-500 text-indigo-950 hover:bg-indigo-500",
 				!article.isRead && "font-medium",
 			)}
@@ -37,7 +36,7 @@ export function ArticleListItem({
 			>
 				{article.title}
 			</p>
-			<div className="mt-1 flex items-center gap-2">
+			<div className="flex items-center gap-2">
 				{!article.isRead && (
 					<span className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
 				)}

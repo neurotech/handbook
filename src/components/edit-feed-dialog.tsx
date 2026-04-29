@@ -67,9 +67,9 @@ export function EditFeedDialog({
 						e.preventDefault();
 						mutation.mutate();
 					}}
-					className="space-y-4"
+					className="flex flex-col gap-4"
 				>
-					<div className="space-y-2">
+					<div className="flex flex-col gap-2">
 						<label htmlFor="edit-feed-url" className="font-medium text-sm">
 							Feed URL
 						</label>
@@ -83,7 +83,7 @@ export function EditFeedDialog({
 							required
 						/>
 					</div>
-					<div className="space-y-2">
+					<div className="flex flex-col gap-2">
 						<label htmlFor="edit-feed-name" className="font-medium text-sm">
 							Name
 						</label>

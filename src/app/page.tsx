@@ -82,6 +82,14 @@ function HomeContent() {
 		};
 	}, [articleGuid, articlesPayload, feedId, paramsComplete]);
 
+	const shouldMarkSelectedArticleRead = useMemo(() => {
+		if (!paramsComplete || !articlesPayload) return false;
+		const article = articlesPayload.articles.find(
+			(a) => a.guid === articleGuid,
+		);
+		return Boolean(article && !article.isRead);
+	}, [articleGuid, articlesPayload, paramsComplete]);
+
 	useEffect(() => {
 		if (!paramsComplete || articlesPending || articlesFetching) return;
 		if (!articlesPayload) return;
@@ -100,7 +108,7 @@ function HomeContent() {
 
 	const queryClient = useQueryClient();
 
-	const markReadMutation = useMutation({
+	const { mutate: markArticleRead } = useMutation({
 		mutationFn: async ({
 			feedId: markFeedId,
 			articleGuid: markGuid,
@@ -123,13 +131,17 @@ function HomeContent() {
 		},
 	});
 
+	// Booleans/primitives only: the full `useMutation` return object identity changes when
+	// mutation status updates; depending on `selection` would also re-fire on cache churn.
 	useEffect(() => {
-		if (!selection?.article || selection.article.isRead) return;
-		markReadMutation.mutate({
-			feedId: selection.feedId,
-			articleGuid: selection.guid,
-		});
-	}, [selection, markReadMutation]);
+		if (!shouldMarkSelectedArticleRead) return;
+		markArticleRead({ feedId, articleGuid });
+	}, [
+		shouldMarkSelectedArticleRead,
+		feedId,
+		articleGuid,
+		markArticleRead,
+	]);
 
 	const handleSelectArticle = useCallback(
 		(chosenFeedId: string, article: Article, _feedName?: string) => {

@@ -30,7 +30,11 @@ import type { Article, FeedArticlesResponse, FeedWithMeta } from "@/types";
 interface FeedItemProps {
 	feed: FeedWithMeta;
 	selectedArticle: { feedId: string; guid: string } | null;
-	onSelectArticle: (feedId: string, article: Article) => void;
+	onSelectArticle: (
+		feedId: string,
+		article: Article,
+		feedName?: string,
+	) => void;
 }
 
 export function FeedItem({
@@ -105,7 +109,7 @@ export function FeedItem({
 								<Button
 									variant="ghost"
 									size="icon"
-									className="mr-1 h-8 w-8 opacity-0 transition-opacity group-hover:opacity-100"
+									className="mr-1 h-9 w-9 touch-manipulation opacity-100 md:h-8 md:w-8 md:opacity-0 md:transition-opacity md:group-hover:opacity-100"
 								/>
 							}
 						>
@@ -145,7 +149,7 @@ export function FeedItem({
 								selectedArticle?.feedId === feed.id &&
 								selectedArticle?.guid === article.guid
 							}
-							onClick={() => onSelectArticle(feed.id, article)}
+							onClick={() => onSelectArticle(feed.id, article, feed.name)}
 						/>
 					))}
 				</CollapsibleContent>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { ArticleView } from "@/components/article-view";
 import { FeedList } from "@/components/feed-list";
 import { Separator } from "@/components/ui/separator";
@@ -42,8 +42,8 @@ export default function Home() {
 	});
 
 	const handleSelectArticle = useCallback(
-		(feedId: string, article: Article) => {
-			setSelected({ feedId, guid: article.guid, article });
+		(feedId: string, article: Article, feedName?: string) => {
+			setSelected({ feedId, guid: article.guid, article, feedName });
 
 			if (!article.isRead) {
 				markReadMutation.mutate({ feedId, articleGuid: article.guid });
@@ -52,21 +52,37 @@ export default function Home() {
 		[markReadMutation],
 	);
 
+	const feedListSelection = useMemo(
+		() => (selected ? { feedId: selected.feedId, guid: selected.guid } : null),
+		[selected],
+	);
+
 	return (
-		<div className="flex h-full min-h-0">
-			<aside className="flex h-full min-h-0 w-80 shrink-0 flex-col overflow-hidden border-border border-r bg-muted/30">
+		<div className="flex min-h-0 flex-1 flex-col md:h-full md:flex-row">
+			<aside
+				className={
+					selected !== null
+						? "flex h-full min-h-0 w-full shrink-0 flex-col overflow-hidden border-border bg-muted/30 max-md:hidden md:w-80 md:border-r"
+						: "flex h-full min-h-0 w-full shrink-0 flex-col overflow-hidden border-border border-b bg-muted/30 md:w-80 md:border-r md:border-b-0"
+				}
+			>
 				<FeedList
-					selectedArticle={
-						selected ? { feedId: selected.feedId, guid: selected.guid } : null
-					}
+					selectedArticle={feedListSelection}
 					onSelectArticle={handleSelectArticle}
 				/>
 			</aside>
-			<Separator orientation="vertical" />
-			<main className="min-h-0 min-w-0 flex-1 bg-background">
+			<Separator orientation="vertical" className="hidden md:block" />
+			<main
+				className={
+					selected === null
+						? "hidden min-h-0 min-w-0 flex-1 bg-background md:flex"
+						: "flex min-h-0 min-w-0 flex-1 flex-col bg-background"
+				}
+			>
 				<ArticleView
 					article={selected?.article ?? null}
 					feedName={selected?.feedName}
+					onNavigateBack={selected ? () => setSelected(null) : undefined}
 				/>
 			</main>
 		</div>

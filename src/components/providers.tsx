@@ -27,7 +27,7 @@ export function Providers({ children }: { children: ReactNode }) {
 		>
 			<QueryClientProvider client={queryClient}>
 				<TooltipProvider>
-					<div className="h-full min-h-0">{children}</div>
+					<div className="flex h-dvh min-h-0 flex-col">{children}</div>
 				</TooltipProvider>
 			</QueryClientProvider>
 		</ThemeProvider>

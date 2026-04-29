@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Hanken_Grotesk } from "next/font/google";
 import { Providers } from "@/components/providers";
 import "./globals.css";
@@ -19,6 +19,12 @@ export const metadata: Metadata = {
 	description: "Read and organize your feeds",
 };
 
+export const viewport: Viewport = {
+	width: "device-width",
+	initialScale: 1,
+	viewportFit: "cover",
+};
+
 export default function RootLayout({
 	children,
 }: Readonly<{
@@ -30,7 +36,7 @@ export default function RootLayout({
 			className={`${hankenGrotesk.className} ${hankenGrotesk.variable} ${geistMono.variable} h-full antialiased`}
 			suppressHydrationWarning
 		>
-			<body className="h-full">
+			<body className="h-full overflow-x-hidden">
 				<Providers>{children}</Providers>
 			</body>
 		</html>

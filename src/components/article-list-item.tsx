@@ -23,7 +23,7 @@ export function ArticleListItem({
 			type="button"
 			onClick={onClick}
 			className={cn(
-				"w-full border-border/50 border-b px-3 py-2 text-left transition-colors last:border-b-0 hover:cursor-pointer hover:bg-accent/50",
+				"min-h-[2.75rem] w-full border-border/50 border-b px-3 py-2.5 text-left transition-colors last:border-b-0 hover:cursor-pointer hover:bg-accent/50 sm:min-h-0 sm:py-2",
 				isSelected && "bg-indigo-500 text-indigo-950 hover:bg-indigo-500",
 				!article.isRead && "font-medium",
 			)}

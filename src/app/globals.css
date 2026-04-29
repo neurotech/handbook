@@ -172,6 +172,11 @@
 	}
 	body {
 		@apply bg-background text-foreground;
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	html {
+		@apply min-h-full;
 	}
 
 	.dark ::selection {

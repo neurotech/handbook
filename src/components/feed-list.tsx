@@ -17,7 +17,11 @@ import type { Article, FeedWithMeta } from "@/types";
 
 interface FeedListProps {
 	selectedArticle: { feedId: string; guid: string } | null;
-	onSelectArticle: (feedId: string, article: Article) => void;
+	onSelectArticle: (
+		feedId: string,
+		article: Article,
+		feedName?: string,
+	) => void;
 }
 
 export function FeedList({ selectedArticle, onSelectArticle }: FeedListProps) {
@@ -37,7 +41,7 @@ export function FeedList({ selectedArticle, onSelectArticle }: FeedListProps) {
 
 	return (
 		<div className="flex h-full min-h-0 flex-1 flex-col">
-			<div className="flex items-center justify-between px-4 py-3">
+			<div className="flex shrink-0 items-center justify-between px-3 pt-[max(0.75rem,env(safe-area-inset-top))] pb-3 sm:px-4">
 				<div className="flex items-center gap-2">
 					<BookOpen className="h-5 w-5 text-primary" />
 					<h1 className="font-semibold text-lg">Handbook</h1>

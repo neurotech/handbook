@@ -8,7 +8,7 @@ import {
 	Pencil,
 	Trash2,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArticleListItem } from "@/components/article-list-item";
 import { EditFeedDialog } from "@/components/edit-feed-dialog";
 import { Badge } from "@/components/ui/badge";
@@ -46,6 +46,12 @@ export function FeedItem({
 	const [editOpen, setEditOpen] = useState(false);
 	const queryClient = useQueryClient();
 
+	const selectionTouchesThisFeed = selectedArticle?.feedId === feed.id;
+
+	useEffect(() => {
+		if (selectionTouchesThisFeed) setIsOpen(true);
+	}, [selectionTouchesThisFeed]);
+
 	const { data, isLoading } = useQuery<FeedArticlesResponse>({
 		queryKey: ["feed-articles", feed.id],
 		queryFn: async () => {
@@ -53,7 +59,7 @@ export function FeedItem({
 			if (!res.ok) throw new Error("Failed to fetch articles");
 			return res.json();
 		},
-		enabled: isOpen,
+		enabled: isOpen || selectionTouchesThisFeed,
 		refetchInterval: 5 * 60 * 1000,
 	});
 
